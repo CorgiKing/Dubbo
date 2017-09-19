@@ -1,0 +1,70 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'war'
+
+version = '1.0'
+
+tasks.withType(JavaCompile) {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+    options.encoding = 'utf-8'
+}
+
+jar {
+    manifest {
+        attributes 	'Title': 'DubboProvider',
+        			'provider':'Corgi King',
+                   	'Version': version
+    }
+}
+war {
+    manifest {
+        attributes 	'Title': 'DubboProvider',
+        			'provider':'Corgi King',
+                   	'Version': version
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    
+    compile group: 'commons-collections', name: 'commons-collections', version: '3.2'
+    compile group: 'org.springframework', name:	'spring-context',	version:'4.3.11.RELEASE'
+    compile group: 'org.springframework', name:	'spring-web',	version:'4.3.11.RELEASE'
+    
+    //zookeeper
+    compile	group: 'com.github.sgroschupf', name: 'zkclient', version: '0.1'
+    
+    compile(group: 'com.alibaba', name: 'dubbo', version: '2.5.3') {
+        exclude group: 'org.springframework', module: 'spring'
+    }
+}
+
+test {
+    systemProperties 'property': 'value'
+}
+
+ext {
+    environment = System.getProperty("env")
+
+    if (environment == null) {
+    	environment = "dev"
+    }
+}
+//gradle clean war -Denv=dev
+
+test {
+    systemProperties 'property': 'value'
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDirs = ["src/main/resources", "src/main/environment/$environment"]
+        }
+    }
+}
