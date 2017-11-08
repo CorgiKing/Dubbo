@@ -17,7 +17,8 @@ public class UserApi {
 	
 	@GetMapping("/id/{id}")
 	public User getUser(@PathVariable Integer id){
-		return userService.getUserById(id);
+		User u = userService.getUserById(id);
+		return u;
 	}
 	
 }

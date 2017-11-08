@@ -27,6 +27,7 @@ war {
 
 repositories {
     mavenCentral()
+    maven{url="http://192.168.1.130:8081/nexus/content/repositories/corgiking/"}
 }
 
 dependencies {
@@ -35,6 +36,8 @@ dependencies {
     compile group: 'commons-collections', name: 'commons-collections', version: '3.2'
     compile group: 'org.springframework', name:	'spring-context',	version:'4.3.11.RELEASE'
     compile group: 'org.springframework', name:	'spring-web',	version:'4.3.11.RELEASE'
+    
+    compile group: 'org.corgiking', name:'dubboservice', version:'1.0.1'
     
     //zookeeper
     compile	group: 'com.github.sgroschupf', name: 'zkclient', version: '0.1'
